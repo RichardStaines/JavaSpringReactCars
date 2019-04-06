@@ -39,6 +39,8 @@ public class CardatabaseApplication {
     @Bean
     CommandLineRunner runner() {
         return args -> {
+
+/* Moved to flyway migration file
             Owner owner1 = new Owner("John", "Johnson");
             Owner owner2 = new Owner("Harriette", "Hodgson");
             ownerRepository.save(owner1);
@@ -67,6 +69,7 @@ public class CardatabaseApplication {
                             owner1, owner2
                     )
             );
+            */
         };
     }
 

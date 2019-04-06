@@ -28,5 +28,10 @@ values
 ("Mazda", "6 estate", "Green",
   "ABC-7072", 34000, 2013);
 
- insert into car_owner (id, owner_id) values (?, ?)
+ insert into car_owner
+  (id, owner_id)
+ values
+  (1, 1),
+  (2, 2),
+  (3, 2);
 
