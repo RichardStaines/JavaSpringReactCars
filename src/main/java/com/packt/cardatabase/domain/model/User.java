@@ -21,13 +21,6 @@ public class User {
     @Column(nullable = false)
     private String role;
 
-    public String getPassword() {
-        return password;
-    }
-    public String getRole() {
-        return role;
-    }
-
     public User() {
     }
 
