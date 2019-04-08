@@ -21,6 +21,13 @@ public class User {
     @Column(nullable = false)
     private String role;
 
+    public String getPassword() {
+        return password;
+    }
+    public String getRole() {
+        return role;
+    }
+
     public User() {
     }
 
@@ -31,4 +38,5 @@ public class User {
         this.password = PasswordEncrypt.encrypt(password);
         this.role = role;
     }
+
 }
