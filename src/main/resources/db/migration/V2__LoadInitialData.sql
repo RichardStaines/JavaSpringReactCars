@@ -17,11 +17,11 @@ insert into car
 (brand, model, colour, registration_number, price, year)
 values
 ("Ford", "Mustang", "Red",
-  "ADF-1121", 56000, 1975),
+  "ADF-1121", 56000, "1975"),
 ("MG", "MG3", "Blue",
-  "ZZZ-319", 13000, 2019),
+  "ZZZ-319", 13000, "2019"),
 ("Mazda", "6 estate", "Green",
-  "ABC-7072", 34000, 2013);
+  "ABC-7072", 34000, "2013");
 
  insert into car_owner
   (id, owner_id)
