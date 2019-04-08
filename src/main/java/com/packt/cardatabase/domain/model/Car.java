@@ -16,11 +16,12 @@ import java.util.stream.Stream;
 
 public class Car {
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(nullable = false, updatable = false)
     private long id;
 
-    private String brand, model, colour, registrationNumber;
-    private int year, price;
+    private String brand, model, colour, registrationNumber, year;
+    private int price;
 
 //    @ManyToOne(fetch=FetchType.LAZY)
 //    @JoinColumn(name="owner")
@@ -38,7 +39,7 @@ public class Car {
     public Car() {}
 
     public Car (String brand, String model, String colour,
-                String registrationNumber, int year, int price,
+                String registrationNumber, String year, int price,
                 Owner... owners
     ) {
         super();
