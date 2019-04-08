@@ -1,11 +1,13 @@
--- setup initial set of users
 insert into user
 (username, password, role)
 values
-("admin", "$2a$10$FQu86C7r9lm9eBxyC5/MyOiJ7lnb1zmL.8ou1rJ4N1kik.2L0LRAW", "ADMIN"),
+("admin", "$2a$10$FQu86C7r9lm9eBxyC5/MyOiJ7lnb1zmL.8ou1rJ4N1kik.2L0LRAW", "ADMIN");
+
+insert into user
+(username, password, role)
+values
 ("user", "$2a$10$7vBOxO17g6yOA8liSe8NOOzVIXg1iQ2M/p2Pu.8/CQAtMbiEdr33e", "USER");
 
--- This is test data really
 insert into owner
 (first_name, last_name)
 values
