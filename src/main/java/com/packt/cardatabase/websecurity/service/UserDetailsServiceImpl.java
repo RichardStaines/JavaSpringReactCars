@@ -1,4 +1,4 @@
-package com.packt.cardatabase.domain.service.impl;
+package com.packt.cardatabase.websecurity.service;
 
 import com.packt.cardatabase.domain.model.User;
 import com.packt.cardatabase.domain.repository.UserRepository;
