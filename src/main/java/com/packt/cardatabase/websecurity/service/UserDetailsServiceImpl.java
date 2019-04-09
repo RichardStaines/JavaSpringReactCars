@@ -1,7 +1,7 @@
 package com.packt.cardatabase.websecurity.service;
 
-import com.packt.cardatabase.domain.model.User;
-import com.packt.cardatabase.domain.repository.UserRepository;
+import com.packt.cardatabase.websecurity.model.User;
+import com.packt.cardatabase.websecurity.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;

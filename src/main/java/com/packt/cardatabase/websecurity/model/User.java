@@ -1,4 +1,4 @@
-package com.packt.cardatabase.domain.model;
+package com.packt.cardatabase.websecurity.model;
 
 import javax.persistence.*;
 import com.packt.cardatabase.domain.Utils.PasswordEncrypt;

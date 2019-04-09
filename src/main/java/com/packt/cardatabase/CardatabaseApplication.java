@@ -1,24 +1,15 @@
 package com.packt.cardatabase;
 
-import com.packt.cardatabase.domain.Utils.PasswordEncrypt;
-import com.packt.cardatabase.domain.model.Owner;
-import com.packt.cardatabase.domain.model.User;
 import com.packt.cardatabase.domain.repository.OwnerRepository;
-import com.packt.cardatabase.domain.repository.UserRepository;
+import com.packt.cardatabase.websecurity.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 
-import com.packt.cardatabase.domain.model.Car;
 import com.packt.cardatabase.domain.repository.CarRepository;
-
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
 
 import static org.springframework.boot.SpringApplication.*;
 
