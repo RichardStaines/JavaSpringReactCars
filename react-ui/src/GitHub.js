@@ -54,8 +54,10 @@ class GitHub extends Component {
          <ReactTable
             data={this.state.data}
             columns={columns}
+            filterable={true}
+            defaultPageSize = {10}
             />
-        </div>
+         </div>
     );
   }
 

@@ -47,13 +47,16 @@ class App extends Component {
     return (
         <div className="App">
 
-         <input type="text" name="url" value={this.state.url}  size="120"/> <br />
+         <input type="text" name="url" value={this.state.url}  size="120"/>
+         <br />
          <input type="text" onChange={this.handleChange} />
 
          <button onClick={this.fetchData} value={this.state.keyword}>Fetch</button>
          <ReactTable
             data={this.state.data}
             columns={columns}
+            filterable={true}
+            defaultPageSize = {10}
             />
         </div>
     );
