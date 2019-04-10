@@ -1,3 +1,5 @@
+import ReactTable from "react-table";
+import 'react-table/react-table.css'
 import React, { Component } from 'react';
 import './App.css';
 
@@ -27,18 +29,32 @@ class App extends Component {
 
   render() {
 
-        const tableRows = this.state.data.map((item, index) =>
-                <tr key={index}><td>{item.full_name}</td>
-                <td><a href={item.html_url}>{item.html_url}</a></td></tr>
-            );
+        const columns = [
+            {
+                Header: 'Name', // header of the column
+                accessor: 'full_name' // value in the column
+            },
+            {
+                Header: 'URL',
+                accessor: 'html_url'
+            },
+            {
+                Header: 'Owner', // header of the column
+                accessor: 'owner.login' // value in the column
+            }
+        ]
 
     return (
         <div className="App">
+
          <input type="text" name="url" value={this.state.url}  size="120"/> <br />
          <input type="text" onChange={this.handleChange} />
 
          <button onClick={this.fetchData} value={this.state.keyword}>Fetch</button>
-         <table><tbody>{tableRows}</tbody></table>
+         <ReactTable
+            data={this.state.data}
+            columns={columns}
+            />
         </div>
     );
   }
