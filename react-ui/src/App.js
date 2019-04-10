@@ -4,6 +4,9 @@ import React, { Component } from 'react';
 import './App.css';
 import AddItem from './AddItem';
 import Weather from './Weather';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
 
 class App extends Component {
 
@@ -26,16 +29,20 @@ class App extends Component {
   render() {
 
     const listItems = this.state.items.map((item, index) =>
-     <li key={index}>{item.product} {item.amount}</li>);
+         <ListItem key={index}>
+         <ListItemText primary={item.product} secondary={item.amount} />
+         </ListItem>
+     );
 
     return (
         <div className="App">
-        <Weather />
-        <br />
 
         <h2>Shopping List</h2>
         <AddItem addItem={this.addItem} />
-        <ul>{listItems}</ul>
+        <List>{listItems}</List>
+
+        <br />
+        <Weather />
 
         </div>
     );
