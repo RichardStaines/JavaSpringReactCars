@@ -8,7 +8,12 @@ class App extends Component {
     constructor(props)
     {
         super(props);
-        this.state = { url: '', keyword: '', data: [] };
+        this.state = {
+         url: '',
+         keyword: '',
+         details: '',
+         data: []
+        };
     }
 
     fetchData = () => {
@@ -23,8 +28,13 @@ class App extends Component {
     }
 
     handleChange = (event) => {
-        console.error(event);
+        console.log(event);
         this.setState( {keyword: event.target.value} );
+    }
+
+    btnClick = (value) => {
+        console.log(value);
+        this.setState( {details: `Pressed ${value}`});
     }
 
   render() {
@@ -41,6 +51,16 @@ class App extends Component {
             {
                 Header: 'Owner', // header of the column
                 accessor: 'owner.login' // value in the column
+            },
+            {
+                id: 'button',
+                sortable: false,
+                filterable: false,
+                width: 100,
+                accessor: 'full_name',
+                Cell: ({value}) => (<button className="btn btn-default btn-link"
+                        onClick={() => {this.btnClick(value)}}>{value}</button>
+                )
             }
         ]
 
@@ -48,6 +68,7 @@ class App extends Component {
         <div className="App">
 
          <input type="text" name="url" value={this.state.url}  size="120"/>
+         <input type="text" name="rowDetails" value={this.state.details}  size="20"/>
          <br />
          <input type="text" onChange={this.handleChange} />
 

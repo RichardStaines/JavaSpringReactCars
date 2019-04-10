@@ -8,7 +8,12 @@ class GitHub extends Component {
     constructor(props)
     {
         super(props);
-        this.state = { url: '', keyword: '', data: [] };
+        this.state = {
+         url: '',
+         keyword: '',
+         details: '',
+         data: []
+        };
     }
 
     fetchData = () => {
@@ -27,6 +32,11 @@ class GitHub extends Component {
         this.setState( {keyword: event.target.value} );
     }
 
+    btnClick = (value) => {
+        console.log(value);
+        this.setState( {details: `Pressed ${value}`});
+    }
+
   render() {
 
         const columns = [
@@ -41,6 +51,16 @@ class GitHub extends Component {
             {
                 Header: 'Owner', // header of the column
                 accessor: 'owner.login' // value in the column
+            },
+            {
+                id: 'button',
+                sortable: false,
+                filterable: false,
+                width: 100,
+                accessor: 'full_name',
+                Cell: ({value}) => (<button className="btn btn-default btn-link"
+                        onClick={() => {this.btnClick(value)}}>{value}</button>
+                )
             }
         ]
 
