@@ -5,10 +5,6 @@ import TextField from '@material-ui/core/TextField';
 
 class AddItem extends Component {
 
-    constructor(props) {
-        super(props);
-    }
-
     addItem = () => {
         const item = {
             product: this.state.product,

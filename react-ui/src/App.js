@@ -1,49 +1,39 @@
-import ReactTable from "react-table";
-import 'react-table/react-table.css'
 import React, { Component } from 'react';
-import './App.css';
-import AddItem from './AddItem';
+import { BrowserRouter, Switch, Route, Link } from 'react-router-dom'
+
 import Weather from './Weather';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
+import GitHub from './GitHub';
+import ShoppingList from './ShoppingList';
+import Contact from './Contact';
+import Home from './Home';
+import './App.css';
 
 class App extends Component {
 
-    constructor(props)
-    {
-        super(props);
-        this.state = {
-         items: [],
-         url: '',
-         keyword: '',
-         details: '',
-         data: []
-        };
-    }
-
-    addItem = (item) => {
-        this.setState( {items: [item, ...this.state.items] });
-    }
 
   render() {
 
-    const listItems = this.state.items.map((item, index) =>
-         <ListItem key={index}>
-         <ListItemText primary={item.product} secondary={item.amount} />
-         </ListItem>
-     );
-
     return (
         <div className="App">
-
-        <h2>Shopping List</h2>
-        <AddItem addItem={this.addItem} />
-        <List>{listItems}</List>
-
-        <br />
-        <Weather />
-
+        <BrowserRouter>
+        <div>
+            <Link to="/">Home</Link>{' '}
+            <Link to="/weather">Weather</Link>{' '}
+            <Link to="/github">GitHub</Link>{' '}
+            <Link to="/shopping">Shopping List</Link>{' '}
+            <Link to="/contact">Contact</Link>{' '}
+            <Link to="/links">Links</Link>{' '}
+            <Switch>
+                <Route exact path="/" component={Home} />
+                <Route exact path="/weather" component={Weather} />
+                <Route exact path="/github" component={GitHub} />
+                <Route exact path="/shopping" component={ShoppingList} />
+                <Route exact path="/contact" component={Contact} />
+                <Route exact path="/links" render={()=> <h1>Links</h1>} />
+                <Route render={()=> <h1>Page not found</h1>} />
+            </Switch>
+        </div>
+        </BrowserRouter>
         </div>
     );
   }
