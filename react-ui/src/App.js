@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Switch, Route, Link } from 'react-router-dom'
 
-import Weather from './Weather';
-import GitHub from './GitHub';
-import ShoppingList from './ShoppingList';
-import Contact from './Contact';
-import Home from './Home';
-import CarList from './CarList';
+import Weather from './components/Weather';
+import GitHub from './components/GitHub';
+import ShoppingList from './components/ShoppingList';
+import Contact from './components/Contact';
+import Home from './components/Home';
+import CarList from './components/cars/CarList';
 import './App.css';
 
 class App extends Component {

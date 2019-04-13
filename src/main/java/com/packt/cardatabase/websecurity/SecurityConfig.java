@@ -39,21 +39,28 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception
     {
-        http.cors().and().csrf().disable().authorizeRequests()
-                .antMatchers(HttpMethod.POST, "/login").permitAll()
-                .anyRequest().authenticated()
-                .and()
-                // filter for the api/login requests
-                // filter for other request to check JWT in the header
-                .addFilterBefore(new LoginFilter(
-                                authenticationManager()
-                        ),
-                        UsernamePasswordAuthenticationFilter.class
-                )
-                .addFilterBefore(new AuthenticationFilter(authenticationManager()),
-                        UsernamePasswordAuthenticationFilter.class)
-                // this disables session creation on Spring Security
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        boolean bSecurityOn = false;
+
+        if (bSecurityOn == false) {
+            http.cors().and().authorizeRequests().anyRequest().permitAll();
+        }
+        else {
+            http.cors().and().csrf().disable().authorizeRequests()
+                    .antMatchers(HttpMethod.POST, "/login").permitAll()
+                    .anyRequest().authenticated()
+                    .and()
+                    // filter for the api/login requests
+                    // filter for other request to check JWT in the header
+                    .addFilterBefore(new LoginFilter(
+                                    authenticationManager()
+                            ),
+                            UsernamePasswordAuthenticationFilter.class
+                    )
+                    .addFilterBefore(new AuthenticationFilter(authenticationManager()),
+                            UsernamePasswordAuthenticationFilter.class)
+                    // this disables session creation on Spring Security
+                    .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        }
     }
 
 
