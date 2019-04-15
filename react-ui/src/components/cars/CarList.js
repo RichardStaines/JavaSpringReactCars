@@ -9,6 +9,7 @@ import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import RaisedButton from '@material-ui/core/Button';
 import { CSVLink } from 'react-csv';
+import Grid from '@material-ui/core/Grid';
 
 import AddCar from './AddCar.js';
 import {SERVER_URL} from '../../constants.js';
@@ -207,8 +208,14 @@ class CarList extends Component {
             <div className="CarList">
                 <header className="CarList-header">
                     <h1 className="CarList-title">Car List</h1>
-                    <CSVLink className="CSVList" data={this.state.cars} seperator=";">Export to CSV</CSVLink>
-                    <AddCar addCar={this.addCar} fetchCars={this.fetchCars} />
+                    <Grid container>
+                        <Grid item>
+                            <AddCar addCar={this.addCar} fetchCars={this.fetchCars} />
+                        </Grid>
+                        <Grid item style={{padding: 20}}>
+                            <CSVLink className="CSVList" data={this.state.cars} seperator=";">Export to CSV</CSVLink>
+                        </Grid>
+                    </Grid>
                     <ReactTable
                         data={this.state.cars}
                         columns={columns}
