@@ -40,4 +40,13 @@ public class CarRestTest {
                 .andDo(print()).andExpect(status().is4xxClientError());
     }
 
+    @Test
+    public void testAddCar() throws Exception
+    {
+        // Test with correct credentials
+        this.mockMvc.perform(post("/cars")
+                .content("{\"brand\": \"Fiat\" , \"model\":\"Uno\", \"colour\":\"red\", \"registrationNumber\":\"xxx111\"  }"))
+                .andDo(print()).andExpect(status().isOk());
+    }
+
 }

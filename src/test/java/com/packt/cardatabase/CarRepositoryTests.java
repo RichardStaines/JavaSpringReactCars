@@ -35,6 +35,13 @@ public class CarRepositoryTests {
     }
 
     @Test
+    public void saveCarNoOwner() {
+        Car car = new Car("Tesla", "Model X", "White", "ZZZ-777", "2019", 85000);
+        entityManager.persistAndFlush(car);
+        assertThat(car.getId()).isNotNull();
+    }
+
+    @Test
     public void deleteCars() {
         Owner owner1 = new Owner("John", "Evans");
         entityManager.persistAndFlush(owner1);

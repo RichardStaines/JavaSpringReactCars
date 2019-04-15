@@ -8,6 +8,7 @@ import 'react-confirm-alert/src/react-confirm-alert.css';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 
+import AddCar from './AddCar.js';
 import {SERVER_URL} from '../../constants.js';
 import './CarList.css';
 
@@ -18,6 +19,13 @@ class CarList extends Component {
         this.state = { cars: [] };
     }
 
+    printError(err) {
+        console.error(err);
+        toast.error(err,
+            {position: toast.POSITION.BOTTOM_LEFT}
+        );
+    }
+
     fetchCars() {
         fetch(SERVER_URL+'api/cars')
         .then((response) => response.json())
@@ -26,7 +34,20 @@ class CarList extends Component {
                 {cars: responseData._embedded.cars}
             );
         })
-        .catch(err => console.error(err));
+        .catch(err => this.printError(err));
+    }
+
+    addCar(car) {
+        console.log("addCar: " + car);
+        fetch(SERVER_URL+'api/cars',
+            {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json'},
+                body: JSON.stringify(car)
+            }
+        )
+        .then(res => this.fetchCars)
+        .catch(err => this.printError(err))
     }
 
     componentDidMount() {
@@ -62,12 +83,9 @@ class CarList extends Component {
                 this.fetchCars();
             }
         )
-        .catch(err => {
-            toast.error("Error when deleting",
-                {position: toast.POSITION.BOTTOM_LEFT}
-            );
-            console.error(err)
-        });
+        .catch(err =>
+            this.printError(err)
+        );
     }
 
     render() {
@@ -108,7 +126,7 @@ class CarList extends Component {
             <div className="CarList">
                 <header className="CarList-header">
                     <h1 className="CarList-title">Car List</h1>
-
+                    <AddCar addCar={this.addCar} fetchCars={this.fetchCars} />
                     <ReactTable
                         data={this.state.cars}
                         columns={columns}

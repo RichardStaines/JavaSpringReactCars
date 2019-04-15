@@ -50,7 +50,8 @@ public class Car {
         this.year = year;
         this.price = price;
 
-        this.owners = Stream.of(owners).collect(Collectors.toSet());
+        if (owners != null)
+            this.owners = Stream.of(owners).collect(Collectors.toSet());
 
     }
 
