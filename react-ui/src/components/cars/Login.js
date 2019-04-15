@@ -18,6 +18,11 @@ class Login extends Component {
         this.setState({open: false});
     }
 
+    logout = () => {
+        sessionStorage.removeItem("jwt");
+        this.SetState({isAuthenticated: false});
+    }
+
     login = () => {
         const user = {username: this.state.username, password: this.state.password};
 
