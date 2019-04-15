@@ -2,6 +2,8 @@ import React, {Component } from 'react';
 import {SERVER_URL} from '../../constants.js';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import SnackBar from '@material-ui/core/Snackbar';
+
 import CarList from './CarList.js';
 import './CarList.css';
 
@@ -9,7 +11,11 @@ class Login extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {username : '', password: '', isAuthenticated: false};
+        this.state = {username : '', password: '', isAuthenticated: false, open: false};
+    }
+
+    handleClose = (event) => {
+        this.setState({open: false});
     }
 
     login = () => {
@@ -30,6 +36,8 @@ class Login extends Component {
             if (jwtToken !== null) {
                 sessionStorage.setItem("jwt", jwtToken);
                 this.setState({isAuthenticated: true})
+            } else {
+                this.setState({open: true});
             }
         })
         .catch(err => console.error(err))
@@ -39,9 +47,6 @@ class Login extends Component {
         this.setState({[event.target.name] : event.target.value});
     }
 
-/*
-*/
-
     render() {
         if (this.state.isAuthenticated === true)
         {
@@ -50,6 +55,10 @@ class Login extends Component {
         else {
           return (
             <div className="CarList">
+            <SnackBar open={this.state.open} onClose={this.handleClose}
+                autoHideDuration={1500}
+                message='Check your username and password' />
+
             <br />
                 <TextField name="username" placeholder="Username"
                     onChange={this.handleChange}
