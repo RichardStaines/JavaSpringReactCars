@@ -7,5 +7,16 @@
 
 .DeleteIcon {
     color: red;
-    size: large;
+    size: medium;
+}
+.SaveIcon {
+    color: red;
+    size: small;
+}
+.CSVList {
+    color: white;
+}
+
+.EditableCell {
+    background=color: "#fafafa";
 }

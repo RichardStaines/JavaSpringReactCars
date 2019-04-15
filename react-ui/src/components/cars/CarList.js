@@ -7,6 +7,8 @@ import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
+import RaisedButton from '@material-ui/core/Button';
+import { CSVLink } from 'react-csv';
 
 import AddCar from './AddCar.js';
 import {SERVER_URL} from '../../constants.js';
@@ -54,14 +56,35 @@ class CarList extends Component {
         this.fetchCars();
     }
 
+    confirmSave(link, row) {
+        console.log("confirm save - " + link + " Vals: " + row);
+        confirmAlert({
+            message: 'Are you sure you want to save?',
+            buttons:
+                [
+                    {
+                        label: 'Yes',
+                        onClick: () => this.onSaveClick(link, row)
+                    },
+                    {
+                        label: 'No',
+                        onClick: () => toast.success("Save Aborted",
+                                            {position: toast.POSITION.BOTTOM_LEFT}
+                                        )
+                    }
+                ]
+        })
+    }
+
     confirmDelete(row) {
+        console.log("confirm delete - " + row);
         confirmAlert({
             message: 'Are you sure you want to delete?',
             buttons:
                 [
                     {
                         label: 'Yes',
-                        onClick: () => this.OnDelClick(row)
+                        onClick: () => this.onDelClick(row)
                     },
                     {
                         label: 'No',
@@ -88,32 +111,90 @@ class CarList extends Component {
         );
     }
 
+    onSaveClick(link, car) {
+        fetch(link,
+            {method: 'PUT',
+             headers: {'Content-Type': 'application/json'},
+             body:  JSON.stringify(car)
+        })
+        .then(res =>
+            {
+                toast.success("Car changes saved",
+                    {position: toast.POSITION.BOTTOM_LEFT}
+                );
+                this.fetchCars();
+            }
+        )
+        .catch(err =>
+            this.printError(err)
+        );
+    }
+
+    renderEditable = (cellInfo) => {
+        return (
+            <div
+             className="EditableCell"
+             contentEditable
+             suppressContentEditableWarning
+             onBlur={e => {
+                const data = [...this.state.cars];
+                data[cellInfo.index][cellInfo.column.id] =
+                    e.target.innerHTML;
+                this.setState({ cars: data });
+             }}
+             dangerouslySetInnerHTML={{
+                __html: this.state.cars[cellInfo.index][cellInfo.column.id]
+             }}
+             />
+        );
+    }
+
     render() {
         const columns = [
             {
-                Header: 'Brand', accessor: 'brand'
+                Header: 'Brand', accessor: 'brand',
+                Cell: this.renderEditable
             },
             {
-                Header: 'Model', accessor: 'model'
+                Header: 'Model', accessor: 'model',
+                Cell: this.renderEditable
             },
             {
-                Header: 'Colour', accessor: 'colour'
+                Header: 'Colour', accessor: 'colour',
+                Cell: this.renderEditable
             },
             {
-                Header: 'Registration', accessor: 'registrationNumber'
+                Header: 'Registration', accessor: 'registrationNumber',
+                Cell: this.renderEditable
             },
             {
-                Header: 'Year', accessor: 'year'
+                Header: 'Year', accessor: 'year',
+                Cell: this.renderEditable
             },
             {
-                Header: 'Price (£)', accessor: 'price'
+                Header: 'Price (£)', accessor: 'price',
+                Cell: this.renderEditable
+            },
+            {
+                id: 'savebutton',
+                sortable: false,
+                filterable: false,
+                width: 75,
+                accessor: '_links.self.href',
+                Cell: ({value, row}) =>
+                    (
+                    <RaisedButton onClick={() =>
+                        {this.confirmSave(value, row)}}
+                        variant="contained" color="primary"
+                     >Save</RaisedButton>
+                    )
             },
             {
                 id: 'delbutton',
                 sortable: false,
                 filterable: false,
                 width: 50,
-                accessor: '_link.self.href',
+                accessor: '_links.self.href',
                 Cell: ({value}) =>
                     (
                     <IconButton onClick={() =>
@@ -126,6 +207,7 @@ class CarList extends Component {
             <div className="CarList">
                 <header className="CarList-header">
                     <h1 className="CarList-title">Car List</h1>
+                    <CSVLink className="CSVList" data={this.state.cars} seperator=";">Export to CSV</CSVLink>
                     <AddCar addCar={this.addCar} fetchCars={this.fetchCars} />
                     <ReactTable
                         data={this.state.cars}
