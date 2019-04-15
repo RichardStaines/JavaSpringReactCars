@@ -206,8 +206,8 @@ class CarList extends Component {
         ]
         return (
             <div className="CarList">
-                <h1 className="CarList-title">Car List</h1>
-                <Grid container>
+
+                <Grid container  >
                     <Grid item>
                         <AddCar addCar={this.addCar} fetchCars={this.fetchCars} />
                     </Grid>
