@@ -25,7 +25,7 @@ public class AuthenticationService {
                 .signWith(SignatureAlgorithm.HS512, SIGNING_KEY)
                 .compact();
         response.addHeader("Authorization", TOKEN_PREFIX + " " + jwtToken);
-        response.addHeader("Access-Control-Expose-Headers", "Authoraization");
+        response.addHeader("Access-Control-Expose-Headers", "Authorization");
     }
 
     static public Authentication getAuthentication(HttpServletRequest request){

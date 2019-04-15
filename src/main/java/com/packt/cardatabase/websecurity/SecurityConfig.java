@@ -39,7 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception
     {
-        boolean bSecurityOn = false;
+        boolean bSecurityOn = true;
 
         if (bSecurityOn == false) {
             http.cors().and().authorizeRequests().anyRequest().permitAll();

@@ -30,28 +30,22 @@ class CarList extends Component {
     }
 
     fetchCars() {
-        fetch(SERVER_URL+'api/cars')
+        const jwtToken = sessionStorage.getItem("jwt");
+
+        fetch(SERVER_URL+'api/cars',
+            {
+                headers: {'Authorization' : jwtToken}
+            }
+        )
         .then((response) => response.json())
         .then((responseData) => {
             this.setState(
                 {cars: responseData._embedded.cars}
             );
         })
-        .catch(err => this.printError(err));
+        .catch(err => console.error(err));
     }
 
-    addCar(car) {
-        console.log("addCar: " + car);
-        fetch(SERVER_URL+'api/cars',
-            {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json'},
-                body: JSON.stringify(car)
-            }
-        )
-        .then(res => this.fetchCars)
-        .catch(err => this.printError(err))
-    }
 
     componentDidMount() {
         this.fetchCars();
@@ -98,7 +92,13 @@ class CarList extends Component {
     }
 
     onDelClick(row) {
-        fetch(row, {method: 'DELETE'})
+        const jwtToken = sessionStorage.getItem("jwt");
+        fetch(row,
+          {
+            method: 'DELETE',
+            headers: {'Authorization' : jwtToken}
+          }
+        )
         .then(res =>
             {
                 toast.success("Car deleted",
@@ -112,10 +112,35 @@ class CarList extends Component {
         );
     }
 
+    addCar(car) {
+        console.log("addCar: " + car);
+        const jwtToken = sessionStorage.getItem("jwt");
+        fetch(SERVER_URL+'api/cars',
+            {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'Authorization' : jwtToken},
+                body: JSON.stringify(car)
+            }
+        )
+        .then(res => {
+                toast.success("Car added",
+                    {position: toast.POSITION.BOTTOM_LEFT}
+                );
+                this.fetchCars();
+            }
+        )
+        .catch(err => console.error(err))
+    }
+
     onSaveClick(link, car) {
+        const jwtToken = sessionStorage.getItem("jwt");
         fetch(link,
             {method: 'PUT',
-             headers: {'Content-Type': 'application/json'},
+             headers:
+                {
+                    'Content-Type': 'application/json',
+                    'Authorization' : jwtToken
+                },
              body:  JSON.stringify(car)
         })
         .then(res =>
