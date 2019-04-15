@@ -206,24 +206,22 @@ class CarList extends Component {
         ]
         return (
             <div className="CarList">
-                <header className="CarList-header">
-                    <h1 className="CarList-title">Car List</h1>
-                    <Grid container>
-                        <Grid item>
-                            <AddCar addCar={this.addCar} fetchCars={this.fetchCars} />
-                        </Grid>
-                        <Grid item style={{padding: 20}}>
-                            <CSVLink className="CSVList" data={this.state.cars} seperator=";">Export to CSV</CSVLink>
-                        </Grid>
+                <h1 className="CarList-title">Car List</h1>
+                <Grid container>
+                    <Grid item>
+                        <AddCar addCar={this.addCar} fetchCars={this.fetchCars} />
                     </Grid>
-                    <ReactTable
-                        data={this.state.cars}
-                        columns={columns}
-                        filterable={true}
-                        defaultPageSize = {10}
-                    />
-                    <ToastContainer autoClose={1500} />
-                </header>
+                    <Grid item style={{padding: 20}}>
+                        <CSVLink className="CSVList" data={this.state.cars} seperator=";">Export to CSV</CSVLink>
+                    </Grid>
+                </Grid>
+                <ReactTable
+                    data={this.state.cars}
+                    columns={columns}
+                    filterable={true}
+                    defaultPageSize = {10}
+                />
+                <ToastContainer autoClose={1500} />
 
             </div>
         );
